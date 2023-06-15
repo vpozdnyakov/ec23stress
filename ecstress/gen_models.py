@@ -1,7 +1,7 @@
 import torch
 from torch.optim import Adam
 from pytorch_lightning import LightningModule
-from ec23stress.tcn_model import TCNModule
+from ecstress.tcn_model import TCNModule
 
 class TCNGANModule(LightningModule):
     def __init__(
