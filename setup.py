@@ -1,6 +1,7 @@
-from distutils.core import setup
+from setuptools import setup
+
 setup(
     name='ecstress',
-    version='1.0',
-    py_modules=['ecstress'],
+    version='1.0.0',
+    packages=['ecstress'],
 )
