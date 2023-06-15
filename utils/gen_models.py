@@ -114,7 +114,7 @@ class TCNGANModule(LightningModule):
             return self.dec(z)[0, :, :, 0].cpu()
 
 
-class TCNVAE(LightningModule):
+class TCNVAEModule(LightningModule):
     def __init__(
         self, input_dim, latent_dim, hidden_dim, num_layers,
     ):
