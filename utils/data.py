@@ -1,5 +1,5 @@
 import torch
-from torch.utils.data import DataLoader
+from torch.utils.data import Dataset
 
 class SlidingWindowDataset(Dataset):
     def __init__(self, ts, window_size, step_size):
