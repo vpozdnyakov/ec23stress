@@ -1,6 +1,6 @@
-from setuptools import setup
+from distutils.core import setup
 setup(
     name='ec23stress',
     version='1.0',
-    packages=['ec23stress'],
+    py_modules=['ec23stress'],
 )
