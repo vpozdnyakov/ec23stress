@@ -111,7 +111,7 @@ class TCNGANModule(LightningModule):
         self.eval()
         z = torch.randn(1, seq_len, 1)
         with torch.no_grad():
-            return self.dec(z)[0, :, :, 0].cpu()
+            return self.gen(z)[0, :, :, 0].cpu()
 
 
 class TCNVAEModule(LightningModule):
