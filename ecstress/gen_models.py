@@ -109,7 +109,7 @@ class TCNGANModule(LightningModule):
 
     def sample(self, seq_len):
         self.eval()
-        z = torch.randn(1, seq_len, 1)
+        z = torch.randn(1, seq_len, self.latent_dim)
         with torch.no_grad():
             return self.gen(z)[0, :, :, 0].cpu()
 
