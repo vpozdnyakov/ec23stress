@@ -70,6 +70,8 @@ class TCNGANModule(LightningModule):
                 fake = self.gen(z)[..., 0]
             fake_pred = self.disc(fake)
             d_loss = self.disc_loss(real_pred, fake_pred)
+            
+            torch.nn.utils.clip_grad_norm_(self.gen.parameters(), 0.5)
 
             disc_opt.zero_grad()
             self.manual_backward(d_loss)
@@ -79,6 +81,8 @@ class TCNGANModule(LightningModule):
         fake_pred = self.disc(fake)
         g_loss = self.gen_loss(fake_pred)
         
+        torch.nn.utils.clip_grad_norm_(self.dics.parameters(), 0.5)
+
         gen_opt.zero_grad()
         self.manual_backward(g_loss)
         gen_opt.step()
