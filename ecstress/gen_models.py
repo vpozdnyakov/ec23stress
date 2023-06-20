@@ -114,8 +114,8 @@ class TCNGANModule(LightningModule):
         disc_opt = Adam(self.disc.parameters(), lr=self.lr)
         return gen_opt, disc_opt
 
-    def sample(self, seq_len):
+    def sample(self, seq_len, temp=1.):
         self.eval()
-        z = torch.randn(1, seq_len, self.latent_dim)
+        z = torch.randn(1, seq_len, self.latent_dim) * temp
         with torch.no_grad():
             return self.gen(z)[0, :, :, 0].cpu()
