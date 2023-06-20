@@ -97,15 +97,17 @@ class TCNGANModule(LightningModule):
     def validation_step(self, batch, batch_idx):
         
         z = torch.randn(
-            batch.shape[0], batch.shape[1], self.latent_dim, device=self.device
+            1, batch.shape[1], self.latent_dim, device=self.device
         )
-        real_pred = self.disc(batch)
-        fake = self.gen(z)[..., 0]
-        fake_pred = self.disc(fake)
-        d_loss = self.disc_loss(real_pred, fake_pred)
-        g_loss = self.gen_loss(fake_pred)
-        
-        self.log_dict({'val_gen_loss': g_loss, 'val_disc_loss': d_loss})
+        fake = self.gen(z)[0, :, :, 0]
+        real = batch[0]
+               
+        self.log_dict({
+            'val_mean_loss': F.mse_loss(fake.mean(axis=0), real.mean(axis=0)),
+            'val_max_loss': F.mse_loss(fake.amax(axis=0), real.amax(axis=0)),
+            'val_min_loss': F.mse_loss(fake.amin(axis=0), real.amin(axis=0)),
+            'val_corrcoef_loss': F.mse_loss(fake.corrcoef(), real.corrcoef()),
+        })
 
     def configure_optimizers(self):
         gen_opt = Adam(self.gen.parameters(), lr=self.lr)
